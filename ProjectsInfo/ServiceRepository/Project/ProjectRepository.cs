@@ -142,20 +142,23 @@ namespace ProjectsInfo.ServiceRepository.Project
         {
             using (var db = new ProjectContext())
             {
+                var employesInProject = from projectEmployeeInfo in db.ProjectEmployeeInfo
+                    where projectEmployeeInfo.ProjectId == projectId
+                    select projectEmployeeInfo.EmployeeId;
+                var list = employesInProject.ToList();
                 var result = from dbEmployee in db.Employees
-                    where !(from projectEmployeeInfo in db.ProjectEmployeeInfo select projectEmployeeInfo.EmployeeId)
-                              .Contains(dbEmployee.EmployeeId) && dbEmployee.EmployeeStatus == EmployeeStatus.Executor
-                    select new EmployeeViewModel()
-                    {
-                        EmployeeId = dbEmployee.EmployeeId,
-                        EmployeeStatus = dbEmployee.EmployeeStatus == EmployeeStatus.Executor
-                            ? "Исполнитель"
-                            : "Руководитель",
-                        EmployeeName = dbEmployee.EmployeeName,
-                        EmployeeSureName = dbEmployee.EmployeeSureName,
-                        EmployeePatronymic = dbEmployee.EmployeePatronymic,
-                        EmployeeEmail = dbEmployee.EmployeeEmail
-                    };
+                             where !(list.Contains(dbEmployee.EmployeeId)) && dbEmployee.EmployeeStatus == EmployeeStatus.Executor
+                             select new EmployeeViewModel()
+                             {
+                                 EmployeeId = dbEmployee.EmployeeId,
+                                 EmployeeStatus = dbEmployee.EmployeeStatus == EmployeeStatus.Executor
+                                     ? "Исполнитель"
+                                     : "Руководитель",
+                                 EmployeeName = dbEmployee.EmployeeName,
+                                 EmployeeSureName = dbEmployee.EmployeeSureName,
+                                 EmployeePatronymic = dbEmployee.EmployeePatronymic,
+                                 EmployeeEmail = dbEmployee.EmployeeEmail
+                             };
                 return result.ToList();
             }
         }

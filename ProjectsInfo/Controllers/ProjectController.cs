@@ -106,6 +106,7 @@ namespace ProjectsInfo.Controllers
         public ActionResult AddEmployeeToProject(int projectId)
         {
             var project = _projectRepository.GetProjectByIdEntity(projectId);
+            ViewBag.ProjectName = project.ProjectName;
             if (project == null)
             {
                 return RedirectToAction("Index");
