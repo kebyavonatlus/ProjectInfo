@@ -1,0 +1,59 @@
+﻿@model ProjectsInfo.Entity.EmployeeList
+
+@{
+    ViewBag.Title = "Список исполнителей";
+}
+
+    <h2>@ViewBag.Title для добавления в проект</h2>
+
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Имя")
+            </th>
+            <th>
+                @Html.DisplayName("Фамилия")
+            </th>
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+            <th>
+                @Html.DisplayName("Тип сотрудника")
+            </th>
+            <th>
+                @Html.DisplayName("Добавить")
+            </th>
+        </tr>
+        @for (int i = 0; i < Model.EmployeeViewModel.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.EmployeeViewModel[i].EmployeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.EmployeeViewModel[i].EmployeeSureName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.EmployeeViewModel[i].EmployeeEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.EmployeeViewModel[i].EmployeeStatus)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => Model.EmployeeViewModel[i].Checked)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => Model.EmployeeViewModel[i].EmployeeId)
+                </td>
+            </tr>
+        }
+    </table>
+    if (Model.EmployeeViewModel.Count > 0) {
+        <input type="submit" value="Сохранить" class="btn btn-default" />
+    } else {
+        <input type="submit" value="Сохранить" class="btn btn-default" disabled="disabled"/>
+    }
+    
+}

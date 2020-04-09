@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ProjectsInfo.Models.Project.ProjectViewModel>
+
+@{
+    ViewBag.Title = "Список проектов";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Создать новый проект", "CreateProject")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerCompany)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExecutorCompany)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectSupervisor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerCompany)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExecutorCompany)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectSupervisor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "EditProject", new { projectId = item.ProjectId }) |
+            @Html.ActionLink("Удалить", "ShowEmployeesInProject", new { projectId = item.ProjectId }) |
+            @Html.ActionLink("Добавить", "AddEmployeeToProject", new { projectId = item.ProjectId }) 
+        </td>
+    </tr>
+}
+
+</table>

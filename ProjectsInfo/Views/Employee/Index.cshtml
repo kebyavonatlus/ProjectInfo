@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ProjectsInfo.Models.Employee.EmployeeViewModel>
+@{
+    ViewBag.Title = "Список сотрудников";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Создать нового сотрудника", "CreateEmployee")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeSureName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeePatronymic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeStatus)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeSureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeePatronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeStatus)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "EditEmployee", new { employeeId = item.EmployeeId })
+            </td>
+        </tr>
+    }
+
+</table>
